@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Search from '@/views/Search'
 
 Vue.use(VueRouter)
 
@@ -8,7 +7,7 @@ const routes = [
   {
     path: '/',
     name: 'Search',
-    component: Search
+    component: () => import(/* webpackChunkName: "Search" */ '@/views/Search')
   },
 ]
 
