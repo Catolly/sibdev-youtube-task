@@ -1,8 +1,8 @@
 <template>
-	<div class="container fill-height">
+	<div class="container">
 		<app-topbar />
 
-		<v-main>
+		<v-main class="fill-height">
 			<slot />
 		</v-main>
 	</div>
