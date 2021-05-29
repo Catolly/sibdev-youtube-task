@@ -1,10 +1,12 @@
 <template>
 	<app-search-field-base>
 		<v-menu 
+			content-class="menu"
 			:close-on-content-click="false"
 			offset-y 
 			max-width="220"
-			nudge-left="100"
+			nudge-left="99"
+			nudge-bottom="8"
 		>
 			<template v-slot:activator="{ on }">
 				<v-icon
@@ -37,3 +39,25 @@ export default {
 	},
 }
 </script>
+
+<style lang="scss" scoped>
+.menu {
+	contain: initial;
+	overflow: visible;
+
+	&:before {
+		position: absolute;
+		content: '';
+		display: block;
+
+		height: 14px;
+		width: 14px;
+		bottom: 100%;
+		left: calc(50% - 7px);
+		z-index: 10;
+
+		border: 7px solid transparent;
+		border-bottom-color: #FFF;
+	}
+}
+</style>
