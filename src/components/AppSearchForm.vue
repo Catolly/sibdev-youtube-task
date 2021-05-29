@@ -1,5 +1,5 @@
 <template>
-	<v-form class="d-flex">
+	<v-form class="d-flex fill-height align-center">
 		<v-container fluid>
 			<h1 class="text-center">Поиск видео</h1>
 			<v-row class="mt-10" justify="center" no-gutters>
