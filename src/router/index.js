@@ -9,6 +9,11 @@ const routes = [
     name: 'Search',
     component: () => import(/* webpackChunkName: "Search" */ '@/views/Search')
   },
+  {
+    path: '/results',
+    name: 'Results',
+    component: () => import(/* webpackChunkName: "Results" */ '@/views/Results')
+  }
 ]
 
 const router = new VueRouter({
