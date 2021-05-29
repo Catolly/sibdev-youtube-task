@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="layout-container">
 		<app-topbar />
 
 		<v-main class="fill-height">
@@ -19,3 +19,10 @@ export default {
 	},
 }
 </script>
+
+<style scoped>
+.layout-container  {
+	padding-left: 200px !important;
+	padding-right: 200px !important;
+}
+</style>
