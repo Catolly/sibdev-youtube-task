@@ -12,6 +12,10 @@
 				Найти
 			</v-btn>
 		</template>
+
+		<template #append>
+			<slot /> 
+		</template>
 	</v-text-field>
 </template>
 
