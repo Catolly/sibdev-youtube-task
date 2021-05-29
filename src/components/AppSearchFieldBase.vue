@@ -4,7 +4,7 @@
 		placeholder="Что хотите посмотреть?"
 		type="text"
 	>
-		<template #append>
+		<template #append-outer>
 			<v-btn 
 				depressed
 				color="primary"
@@ -23,14 +23,10 @@ export default {
 
 <style lang="scss" scoped>
 .v-text-field {
-	border-radius: 5px;
+	border-radius: 5px 0 0 5px;
 
-	::v-deep .v-input__slot {
-		padding-right: 0 !important;
-	}
-
-	::v-deep .v-input__append-inner {
-		margin-top: 0 !important;
+	::v-deep .v-input__append-outer {
+		margin: 0 !important;
 	}
 
 	.v-btn {
