@@ -1,6 +1,6 @@
 <template>
 	<v-form class="mt-10 d-flex">
-		<v-container fluid>
+		<v-container fluid class="pa-0">
 			<h1>Поиск видео</h1>
 			<v-row class="mt-3" no-gutters>
 				<v-col>
