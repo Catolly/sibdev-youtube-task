@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<app-results-search-form />
+		<app-results-search-form @submit="submit" />
 		<template v-if="!loading">	
 			<template v-if="results.items">
 				<app-results-topbar 
@@ -28,6 +28,8 @@
 import { VideoService } from '@/services/ApiService'
 
 import { VIEW_MODE_GRID, VIEW_MODE_LIST } from '@/components/constants'
+
+import { RESULTS_ROUTE_NAME } from '@/router/constants'
 
 import AppResultsSearchForm from '@/components/AppResultsSearchForm'
 import AppResultsTopbar from '@/components/AppResultsTopbar'
@@ -58,6 +60,18 @@ export default {
 		},
 		VIEW_MODE_GRID() {
 			return VIEW_MODE_GRID
+		},
+	},
+
+	methods: {
+		submit(query) {
+			if (!query) return
+
+			this.$router.push({ 
+				name: RESULTS_ROUTE_NAME,
+				query: { search_query: query } 
+			})
+			this.$router.reload()
 		},
 	},
 
