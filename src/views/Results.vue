@@ -1,16 +1,24 @@
 <template>
-	<app-results-search-form />
+	<div>
+		<app-results-search-form />
+		<app-results-topbar :viewMode.sync="viewMode" />
+	</div>
 </template>
 
 <script>
 import AppResultsSearchForm from '@/components/AppResultsSearchForm'
-// import AppResultsList from '@/components/AppResultsList'
+import AppResultsTopbar from '@/components/AppResultsTopbar'
 
 export default {
 	name: 'Search',
 
 	components: {
 		AppResultsSearchForm,
+		AppResultsTopbar,
 	},
+
+	data:() => ({
+		viewMode: 'list',
+	}),
 }
 </script>
