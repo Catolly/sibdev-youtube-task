@@ -1,23 +1,29 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+import {
+  RESULTS_ROUTE_NAME,
+  FAVOURITES_ROUTE_NAME,
+  SEARCH_ROUTE_NAME,
+} from './constants'
+
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/results',
-    name: 'Results',
-    component: () => import(/* webpackChunkName: "Results" */ '@/views/Results')
+    name: RESULTS_ROUTE_NAME,
+    component: () => import(`@/views/Results`)
   },
   {
     path: '/favourites',
-    name: 'Favourites',
-    component: () => import(/* webpackChunkName: "Favourites" */ '@/views/Favourites')
+    name: FAVOURITES_ROUTE_NAME,
+    component: () => import(`@/views/Favourites`)
   },
   {
     path: '/',
-    name: 'Search',
-    component: () => import(/* webpackChunkName: "Search" */ '@/views/Search')
+    name: SEARCH_ROUTE_NAME,
+    component: () => import(`@/views/Search`)
   },
 ]
 
