@@ -1,5 +1,5 @@
 <template>
-	<div class="layout-container fill-height">
+	<div class="layout-container fill-height grey lighten-5">
 		<app-topbar />
 
 		<v-main class="fill-height">
