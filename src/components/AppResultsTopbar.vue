@@ -2,8 +2,8 @@
 	<v-container fliud class="mx-0 pa-0">
 		<v-row justify="space-between">
 			<v-col class="d-flex align-center">
-				<span>Видео по запросу <b>«Котики»</b></span>
-				<span class="text--disabled ml-4">7230</span>
+				<span>Видео по запросу <b>«{{query}}»</b></span>
+				<span class="text--disabled ml-4">{{totalResults}}</span>
 			</v-col>
 
 			<v-col class="d-flex justify-end" md="2">
@@ -37,6 +37,14 @@ export default {
 		viewMode: {
 			type: String,
 			default: VIEW_MODE_LIST,
+		},
+		query: {
+			type: String,
+			required: true,
+		},
+		totalResults: {
+			type: Number,
+			required: true,
 		},
 	},
 

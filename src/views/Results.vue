@@ -1,19 +1,32 @@
 <template>
 	<div>
 		<app-results-search-form />
-		<app-results-topbar :viewMode.sync="viewMode" />
+		<template v-if="!loading">	
+			<template v-if="results.items">
+				<app-results-topbar 
+					:viewMode.sync="viewMode" 
+					:query="query" 
+					:totalResults="totalResults" 
+				/>
 				<app-results-list 
 					v-show="viewMode === VIEW_MODE_LIST"
+					:videos="results.items"
 					class="mt-5" 
 				/>
 				<app-results-grid 
 					v-show="viewMode === VIEW_MODE_GRID"
+					:videos="results.items"
 					class="mt-5" 
 				/>
+			</template>
+			<h2 v-else>Результатов не найдено</h2>
+		</template>
 	</div>
 </template>
 
 <script>
+import { VideoService } from '@/services/ApiService'
+
 import { VIEW_MODE_GRID, VIEW_MODE_LIST } from '@/components/constants'
 
 import AppResultsSearchForm from '@/components/AppResultsSearchForm'
@@ -32,7 +45,11 @@ export default {
 	},
 
 	data:() => ({
+		query: '',
+		totalResults: 0,
+		results: null,
 		viewMode: VIEW_MODE_LIST,
+		loading: false,
 	}),
 
 	computed: {
@@ -42,6 +59,26 @@ export default {
 		VIEW_MODE_GRID() {
 			return VIEW_MODE_GRID
 		},
+	},
+
+	async created() {
+		try {
+			this.loading = true
+
+			this.query = this.$route.query.search_query
+			const params = { q: this.query }
+			let { data } = await VideoService.get(params)
+			this.totalResults = data.pageInfo.totalResults;
+
+			({ data } = await VideoService.getDetailed({ 
+				id: data.items.map(item => item.id.videoId).join(',')
+			}))
+			this.results = data
+		} catch (error) {
+			console.error(error)
+		} finally {
+			this.loading = false
+		}
 	},
 }
 </script>
