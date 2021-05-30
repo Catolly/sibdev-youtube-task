@@ -14,11 +14,11 @@
 					borderless
 					group
 				>
-					<v-btn icon value="list">
+					<v-btn icon :value="VIEW_MODE_LIST">
 						<v-icon>mdi-format-list-bulleted</v-icon>
 					</v-btn>
 
-					<v-btn icon value="grid">
+					<v-btn icon :value="VIEW_MODE_GRID">
 						<v-icon>mdi-view-grid-outline</v-icon>
 					</v-btn>
 				</v-btn-toggle>
@@ -28,15 +28,26 @@
 </template>
 
 <script>
+import { VIEW_MODE_GRID, VIEW_MODE_LIST } from '@/components/constants'
+
 export default {
 	name: 'AppResultsTopbar',
 
 	props: {
 		viewMode: {
 			type: String,
-			default: 'list',
+			default: VIEW_MODE_LIST,
 		},
 	},
+
+	computed: {
+		VIEW_MODE_LIST() {
+			return VIEW_MODE_LIST
+		},
+		VIEW_MODE_GRID() {
+			return VIEW_MODE_GRID
+		},
+	}
 }
 </script>
 
