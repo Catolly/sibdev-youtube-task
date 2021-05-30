@@ -1,8 +1,6 @@
 <template>
 	<v-text-field 
-		:value="value"
-		@input="$emit('input', $event)"
-		outlined
+		outlined 
 		placeholder="Что хотите посмотреть?"
 		type="text"
 	>
@@ -10,7 +8,6 @@
 			<v-btn 
 				depressed
 				color="primary"
-				@click="$emit('search')"
 			>
 				Найти
 			</v-btn>
@@ -24,14 +21,7 @@
 
 <script>
 export default {
-	name: 'AppSearchFieldBase',
-
-	props: {
-		value: {
-			type: String,
-			default: '',
-		},
-	},
+	name: 'AppSearchFieldBase'
 }
 </script>
 

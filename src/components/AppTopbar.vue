@@ -20,10 +20,10 @@
 				<v-col>
 					<v-tabs :height="topbarHeight">
 						<v-tab>
-							<router-link :to="{ name: 'Search' }">Поиск</router-link>
+							<router-link class="text-decoration-none" to="search">Поиск</router-link>
 						</v-tab>
 						<v-tab>
-							<router-link :to="{ name: 'Favourites' }">Избранное</router-link>
+							<router-link class="text-decoration-none" to="favorites">Избранное</router-link>
 						</v-tab>
 					</v-tabs>
 				</v-col>
