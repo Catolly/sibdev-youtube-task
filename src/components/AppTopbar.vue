@@ -19,11 +19,11 @@
 
 				<v-col>
 					<v-tabs :height="topbarHeight">
-						<v-tab>
-							<router-link :to="{ name: 'Search' }">Поиск</router-link>
+						<v-tab :to="{ name: SEARCH_ROUTE_NAME }">
+							Поиск
 						</v-tab>
-						<v-tab>
-							<router-link :to="{ name: 'Favourites' }">Избранное</router-link>
+						<v-tab :to="{ name: FAVOURITES_ROUTE_NAME }">
+							Избранное
 						</v-tab>
 					</v-tabs>
 				</v-col>
@@ -43,12 +43,27 @@
 </template>
 
 <script>
+import { 
+	SEARCH_ROUTE_NAME, 
+	FAVOURITES_ROUTE_NAME, 
+	LOGIN_ROUTE_NAME 
+} from '@/router/constants'
+
 export default {
 	name: 'AppTopbar',
 
 	data:() => ({
 		topbarHeight: 80,
 	}),
+
+	computed: {
+		SEARCH_ROUTE_NAME() {
+			return SEARCH_ROUTE_NAME
+		},
+		FAVOURITES_ROUTE_NAME() {
+			return FAVOURITES_ROUTE_NAME
+		},
+	},
 }
 </script>
 
