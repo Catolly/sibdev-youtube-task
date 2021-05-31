@@ -32,7 +32,7 @@
 
 				<v-col md="2">
 					<v-tabs :height="topbarHeight" hide-slider>
-						<v-tab class="ml-auto">
+						<v-tab @click="logout" class="ml-auto">
 							Выйти
 						</v-tab>
 					</v-tabs>
@@ -49,6 +49,8 @@ import {
 	LOGIN_ROUTE_NAME 
 } from '@/router/constants'
 
+import { LOGOUT } from '@/store/actions.type'
+
 export default {
 	name: 'AppTopbar',
 
@@ -62,6 +64,13 @@ export default {
 		},
 		FAVOURITES_ROUTE_NAME() {
 			return FAVOURITES_ROUTE_NAME
+		},
+	},
+
+	methods: {
+		logout() {
+			this.$store.dispatch(LOGOUT)
+			this.$router.push({ name: LOGIN_ROUTE_NAME })
 		},
 	},
 }
