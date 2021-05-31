@@ -6,7 +6,10 @@
 			v-slot="{ hover }"
 		>
 			<div class="d-flex flex-column justify-space-between">
-				<v-list-item :class="{ 'on-hover grey lighten-2': hover }">
+				<v-list-item 
+					:class="{ 'on-hover grey lighten-2': hover }"
+					@click="search(favourite)"
+				>
 					<v-list-item-title>
 						<b>{{favourite.name}}</b>
 					</v-list-item-title>
@@ -35,6 +38,8 @@
 </template>
 
 <script>
+import { RESULTS_ROUTE_NAME } from '@/router/constants'
+
 export default {
 	name: 'AppFavouritesList',
 
@@ -42,6 +47,19 @@ export default {
 		favourites: {
 			type: Array,
 			required: true,
+		},
+	},
+
+	methods: {
+		search(favourite) {
+			this.$router.push({ 
+				name: RESULTS_ROUTE_NAME,
+				query: {
+					search_query: favourite.query,
+					order: favourite.order,
+					maxResults: favourite.maxResults,
+				}
+			})
 		},
 	},
 }
