@@ -13,9 +13,9 @@
 					<v-text-field 
 						v-model="form.query"
 						outlined
-						filled
 						height="48"
 						dense
+						:filled="newRequest"
 						:disabled="newRequest"
 						:readonly="newRequest"
 					/>
@@ -24,18 +24,23 @@
 					<span class="red--text">*</span> Название
 					<v-text-field 
 						v-model="form.name"
+						:error-messages="nameErrors"
 						placeholder="Укажите название"
 						height="48"
 						dense
 						outlined
 						required
+						@input="$v.form.name.$touch()"
+						@blur="$v.form.name.$touch()"
 					/>
 				</label> 
 				<label>
 					Сортировать по
 					<v-select
 						v-model="form.order"
-						:items="ORDERS_NAMES"
+						:items="ORDERS"
+						item-text="name"
+						item-value="value"
 						placeholder="Без сортировки"
 						outlined
 						height="48"
@@ -86,6 +91,7 @@
 							block
 							x-large
 							color="primary"
+							:disabled="$v.$invalid"
 							@click="submit"
 						>
 							Сохранить
@@ -104,8 +110,18 @@ import {
 	ORDERS 
 } from '@/components/constants'
 
+import FavouritesService from '@/services/FavouritesService'
+
+import { required } from 'vuelidate/lib/validators'
+
 export default {
 	name: 'AppSaveFavouriteForm',
+
+	validations: {
+	  form: {
+	  	name: { required },
+	  },
+	},
 
 	data:() => ({
 		form: {
@@ -148,22 +164,50 @@ export default {
 		MAX_RESULTS() {
 			return MAX_RESULTS
 		},
-		ORDERS_NAMES() {
-			return ORDERS.map(order => order.name)
+		ORDERS() {
+			return ORDERS
+		},
+	  nameErrors () {
+      const errors = []
+      if (!this.$v.form.name.$dirty) return errors
+      !this.$v.form.name.required && errors.push('Поле должно быть заполнено')
+      return errors
+    },
+	},
+
+	watch: {
+		request() {
+			this.setDefault()
+		},
+		'form.order'() {
+			if (this.form.order.value)
+				this.form.order = this.form.order.value
 		},
 	},
 
 	methods: {
+		editFavourite(favourite) {
+			FavouritesService.editFavourite(favourite)
+		},
+		addFavourite(favourite) {
+			FavouritesService.addFavourite(favourite)
+		},
 		closeForm() {
 			this.$emit('close')
 			this.setDefault()
 		},
-
 		submit() {
-			this.$emit('submit')
-			this.closeForm()
-		},
+			this.$v.$touch()
 
+			if (this.$v.$invalid) return
+
+			if (this.newRequest) 
+				this.addFavourite(this.form)
+			else
+				this.editFavourite(this.form)
+
+			this.$emit('submit')
+		},
 		setDefault() {
 			Object.entries(this.request).forEach(([key, value]) => {
 				this.form[key] = value

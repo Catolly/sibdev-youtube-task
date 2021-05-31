@@ -18,7 +18,7 @@
 				newRequest
 				:request="{query}"
 				@close="closeDialog" 
-				@submit="showMenu" 
+				@submit="submit" 
 			/>
 		</v-dialog>
 
@@ -75,6 +75,10 @@ export default {
 	},
 
 	methods: {
+		submit() {
+			this.closeDialog()
+			this.showMenu()
+		},
 		closeDialog() {
 			this.dialog = false
 		},
