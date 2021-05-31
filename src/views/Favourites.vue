@@ -2,48 +2,53 @@
 	<div class="mt-10">
 		<h1>Избранное</h1>
 
-		<v-list class="mt-10 py-0 white">
-			<v-hover
-				:key="n"
-				v-for="n in 6"
-				v-slot="{ hover }"
-			>
-				<div class="d-flex flex-column justify-space-between">
-					<v-list-item :class="{ 'on-hover grey lighten-2': hover }">
-						<v-list-item-title>
-							<b>Видео</b>
-						</v-list-item-title>
-						
-						<div class="d-flex">
-							<v-btn 
-								color="primary"
-								text
-							>
-								Изменить
-							</v-btn>
-							<v-btn 
-								color="error"
-								text
-							>
-								Удалить
-							</v-btn>
-						</div>
-					</v-list-item>
-					<v-divider class="grey lighten-4" />
-				</div>
-			</v-hover>
-		</v-list>
+		<h3 
+			v-if="!favourites.length"
+			class="mt-4"
+		>
+			Нет избранных
+		</h3>
+
+		<app-favourites-list 
+			:favourites="favourites"
+			class="mt-10" 
+			@edit="openSaveFavouriteForm"
+			@delete="deleteFavourite"
+		/>
 	</div>
 </template>
 
 <script>
+import FavouritesService from '@/services/FavouritesService'
+
+import AppFavouritesList from '@/components/AppFavouritesList'
+
 export default {
 	name: 'Favourites',
+
+	components: {
+		AppFavouritesList,
+	},
+
+	data:() => ({
+		favourites: [],
+	}),
+
+	methods: {
+		updateFavouriteList() {
+			this.favourites = this.getFavouriteList()
+		},
+		getFavouriteList() {
+			return FavouritesService.getFavourites()
+		},
+		deleteFavourite(favourite) {
+			FavouritesService.deleteFavourite(favourite)
+			this.updateFavouriteList()
+		},
+	},
+
+	created() {
+		this.updateFavouriteList()
+	},
 }
 </script>
-
-<style lang="scss" scoped>
-.on-hover {
-	cursor: pointer;
-}
-</style>
