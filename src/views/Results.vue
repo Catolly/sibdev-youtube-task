@@ -71,7 +71,7 @@ export default {
 				name: RESULTS_ROUTE_NAME,
 				query: { search_query: query } 
 			})
-			this.$router.reload()
+			this.$router.go()
 		},
 	},
 
