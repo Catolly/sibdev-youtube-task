@@ -15,6 +15,17 @@
 			@edit="openSaveFavouriteForm"
 			@delete="deleteFavourite"
 		/>
+
+		<v-dialog
+			v-model="isOpenSaveFavouriteForm"
+			max-width="510px"
+		>	
+			<app-save-favourite-form 
+				:request="editingFavourite"
+				@close="closeSaveFavouriteForm"
+				@submit="submit"
+			/>			
+		</v-dialog>
 	</div>
 </template>
 
@@ -22,15 +33,19 @@
 import FavouritesService from '@/services/FavouritesService'
 
 import AppFavouritesList from '@/components/AppFavouritesList'
+import AppSaveFavouriteForm from '@/components/AppSaveFavouriteForm'
 
 export default {
 	name: 'Favourites',
 
 	components: {
 		AppFavouritesList,
+		AppSaveFavouriteForm,
 	},
 
 	data:() => ({
+		isOpenSaveFavouriteForm: false, 
+		editingFavourite: null,
 		favourites: [],
 	}),
 
@@ -40,6 +55,17 @@ export default {
 		},
 		getFavouriteList() {
 			return FavouritesService.getFavourites()
+		},
+		submit() {
+			this.updateFavouriteList()
+			this.closeSaveFavouriteForm()
+		},
+		closeSaveFavouriteForm() {
+			this.isOpenSaveFavouriteForm = false
+		},
+		openSaveFavouriteForm(favourite) {
+			this.editingFavourite = favourite
+			this.isOpenSaveFavouriteForm = true
 		},
 		deleteFavourite(favourite) {
 			FavouritesService.deleteFavourite(favourite)

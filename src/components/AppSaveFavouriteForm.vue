@@ -13,9 +13,9 @@
 					<v-text-field 
 						v-model="form.query"
 						outlined
-						filled
 						height="48"
 						dense
+						:filled="newRequest"
 						:disabled="newRequest"
 						:readonly="newRequest"
 					/>
@@ -104,6 +104,8 @@ import {
 	ORDERS 
 } from '@/components/constants'
 
+import FavouritesService from '@/services/FavouritesService'
+
 export default {
 	name: 'AppSaveFavouriteForm',
 
@@ -153,17 +155,31 @@ export default {
 		},
 	},
 
+	watch: {
+		request() {
+			this.setDefault()
+		},
+	},
+
 	methods: {
+		editFavourite(favourite) {
+			FavouritesService.editFavourite(favourite)
+		},
+		addFavourite(favourite) {
+			FavouritesService.addFavourite(favourite)
+		},
 		closeForm() {
 			this.$emit('close')
 			this.setDefault()
 		},
-
 		submit() {
-			this.$emit('submit')
-			this.closeForm()
-		},
+			if (this.newRequest) 
+				this.addFavourite(this.form)
+			else
+				this.editFavourite(this.form)
 
+			this.$emit('submit')
+		},
 		setDefault() {
 			Object.entries(this.request).forEach(([key, value]) => {
 				this.form[key] = value
