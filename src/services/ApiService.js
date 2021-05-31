@@ -29,6 +29,9 @@ export const VideoService = {
     if (!params.chart) {
       params.chart = 'mostPopular'
     }
+    if (!params.type) {
+      params.type = 'video'
+    }
     try {
       return await ApiService.get('/search', params)
     } catch (error) {
