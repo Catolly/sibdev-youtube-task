@@ -1,11 +1,17 @@
 <template>
-	<v-form class="mt-10 d-flex">
+	<v-form 
+		@submit.prevent="$emit('submit', query)" 
+		class="mt-10 d-flex"
+	>
 		<v-container fluid class="pa-0">
 			<h1>Поиск видео</h1>
 			<v-row class="mt-3" no-gutters>
 				<v-col>
 					<v-row no-gutters>
-						<app-search-field-save-favourite />
+						<app-search-field-save-favourite 
+							v-model="query" 
+							@search="$emit('submit', query)"
+						/>
 					</v-row>
 				</v-col>
 			</v-row>
@@ -22,5 +28,13 @@ export default {
 	components: {
 		AppSearchFieldSaveFavourite,
 	},
+
+	data:() => ({
+		query: '',
+	}),
+
+	created() {
+		this.query = this.$route.query.search_query
+	}
 }
 </script>
