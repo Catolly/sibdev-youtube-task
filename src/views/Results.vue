@@ -5,7 +5,7 @@
 			<template v-if="results.items">
 				<app-results-topbar 
 					:viewMode.sync="viewMode" 
-					:query="query" 
+					:query="this.$route.query.search_query" 
 					:totalResults="totalResults" 
 				/>
 				<app-results-list 
