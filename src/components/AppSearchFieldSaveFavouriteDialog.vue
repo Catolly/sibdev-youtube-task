@@ -14,7 +14,12 @@
 				</v-icon>
 			</template>
 
-			<app-save-favourite-form @close="dialog = false" @submit="menu = true" />
+			<app-save-favourite-form
+				newRequest
+				:request="{query}"
+				@close="closeDialog" 
+				@submit="showMenu" 
+			/>
 		</v-dialog>
 
 		<v-menu 
@@ -51,6 +56,22 @@ export default {
 		dialog: false,
 		menu: false,
 	}),
+
+	props: {
+		query: {
+			type: String,
+			required: true,
+		},
+	},
+
+	methods: {
+		closeDialog() {
+			this.dialog = false
+		},
+		showMenu() {
+			this.menu = true
+		},
+	},
 }
 </script>
 

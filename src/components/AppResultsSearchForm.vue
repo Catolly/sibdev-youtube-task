@@ -1,6 +1,6 @@
 <template>
 	<v-form 
-		@submit.prevent="submit" 
+		@submit.prevent="$emit('submit', query)" 
 		class="mt-10 d-flex"
 	>
 		<v-container fluid class="pa-0">
@@ -10,7 +10,7 @@
 					<v-row no-gutters>
 						<app-search-field-save-favourite 
 							v-model="query" 
-							@search="$emit('submit', query)" 
+							@search="$emit('submit', query)"
 						/>
 					</v-row>
 				</v-col>
@@ -32,5 +32,9 @@ export default {
 	data:() => ({
 		query: '',
 	}),
+
+	created() {
+		this.query = this.$route.query.search_query
+	}
 }
 </script>

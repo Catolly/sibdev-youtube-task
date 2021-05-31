@@ -4,7 +4,7 @@
 		@input="$emit('input', $event)"
 		@search="$emit('search')"
 	>
-		<app-search-field-save-favourite-dialog />
+		<app-search-field-save-favourite-dialog :query="value" />
 	</app-search-field-base>
 </template>
 
