@@ -37,7 +37,7 @@ import AppResultsList from '@/components/AppResultsList'
 import AppResultsGrid from '@/components/AppResultsGrid'
 
 export default {
-	name: 'Search',
+	name: 'Results',
 
 	components: {
 		AppResultsSearchForm,
@@ -79,8 +79,11 @@ export default {
 		try {
 			this.loading = true
 
-			this.query = this.$route.query.search_query
-			const params = { q: this.query }
+			const params = { 
+				q: this.$route.query.search_query,
+				order: this.$route.query.order,
+				maxResults: this.$route.query.maxResults,
+			}
 			let { data } = await VideoService.get(params)
 			this.totalResults = data.pageInfo.totalResults;
 
