@@ -24,11 +24,14 @@
 					<span class="red--text">*</span> Название
 					<v-text-field 
 						v-model="form.name"
+						:error-messages="nameErrors"
 						placeholder="Укажите название"
 						height="48"
 						dense
 						outlined
 						required
+						@input="$v.form.name.$touch()"
+						@blur="$v.form.name.$touch()"
 					/>
 				</label> 
 				<label>
@@ -88,6 +91,7 @@
 							block
 							x-large
 							color="primary"
+							:disabled="$v.$invalid"
 							@click="submit"
 						>
 							Сохранить
@@ -108,8 +112,16 @@ import {
 
 import FavouritesService from '@/services/FavouritesService'
 
+import { required } from 'vuelidate/lib/validators'
+
 export default {
 	name: 'AppSaveFavouriteForm',
+
+	validations: {
+	  form: {
+	  	name: { required },
+	  },
+	},
 
 	data:() => ({
 		form: {
@@ -155,6 +167,12 @@ export default {
 		ORDERS() {
 			return ORDERS
 		},
+	  nameErrors () {
+      const errors = []
+      if (!this.$v.form.name.$dirty) return errors
+      !this.$v.form.name.required && errors.push('Поле должно быть заполнено')
+      return errors
+    },
 	},
 
 	watch: {
@@ -179,6 +197,10 @@ export default {
 			this.setDefault()
 		},
 		submit() {
+			this.$v.$touch()
+
+			if (this.$v.$invalid) return
+
 			if (this.newRequest) 
 				this.addFavourite(this.form)
 			else
