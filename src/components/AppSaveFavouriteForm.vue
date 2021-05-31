@@ -154,10 +154,6 @@ export default {
 	},
 
 	methods: {
-		submit() {
-			this.$emit('submit')
-		},
-
 		closeForm() {
 			this.$emit('close')
 			this.setDefault()
