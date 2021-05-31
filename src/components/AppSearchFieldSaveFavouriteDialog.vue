@@ -35,7 +35,9 @@
 					Поиск сохранён в разделе «Избранное»
 				</v-card-text>
 				<v-card-text class="pt-0">
-					<router-link to="favourites">Перейти в избранное</router-link>
+					<router-link :to="{ name: FAVOURITES_ROUTE_NAME }">
+						Перейти в избранное
+					</router-link>
 				</v-card-text>
 			</v-card>
 		</v-menu>
@@ -43,6 +45,8 @@
 </template>
 
 <script>
+import { FAVOURITES_ROUTE_NAME } from '@/router/constants'
+
 import AppSaveFavouriteForm from '@/components/AppSaveFavouriteForm'
 
 export default {
@@ -61,6 +65,12 @@ export default {
 		query: {
 			type: String,
 			required: true,
+		},
+	},
+
+	computed: {
+		FAVOURITES_ROUTE_NAME() {
+			return FAVOURITES_ROUTE_NAME
 		},
 	},
 
