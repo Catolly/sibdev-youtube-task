@@ -35,7 +35,9 @@
 					Сортировать по
 					<v-select
 						v-model="form.order"
-						:items="ORDERS_NAMES"
+						:items="ORDERS"
+						item-text="name"
+						item-value="value"
 						placeholder="Без сортировки"
 						outlined
 						height="48"
@@ -150,14 +152,18 @@ export default {
 		MAX_RESULTS() {
 			return MAX_RESULTS
 		},
-		ORDERS_NAMES() {
-			return ORDERS.map(order => order.name)
+		ORDERS() {
+			return ORDERS
 		},
 	},
 
 	watch: {
 		request() {
 			this.setDefault()
+		},
+		'form.order'() {
+			if (this.form.order.value)
+				this.form.order = this.form.order.value
 		},
 	},
 
